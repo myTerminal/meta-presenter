@@ -89,6 +89,7 @@
   (- n 
      1))
 
+;;;###autoload
 (defun meta-presenter-start-presentation ()
   "Starts presentation mode"
   (interactive)
@@ -107,20 +108,22 @@
                         nil)
   (beginning-of-buffer))
 
+;;;###autoload
 (defun meta-presenter-move-to-next-slide ()
   "Moves to the next slide"
   (interactive)
   (cond ((not (= meta-presenter--current-slide-number
                  meta-presenter--slide-count)) (progn (meta-presenter--slide-down)
-                                                     (erase-buffer)
-                                                     (meta-presenter--fill-in)
-                                                     (meta-presenter--paste-progress 1)
-                                                     (insert-file-contents (meta-presenter--get-next-slide-name) 
-                                                                           nil)
-                                                     (meta-presenter--slide-up)
-                                                     (meta-presenter--set-current-slide-number (meta-presenter--increment meta-presenter--current-slide-number))))
+                                                      (erase-buffer)
+                                                      (meta-presenter--fill-in)
+                                                      (meta-presenter--paste-progress 1)
+                                                      (insert-file-contents (meta-presenter--get-next-slide-name) 
+                                                                            nil)
+                                                      (meta-presenter--slide-up)
+                                                      (meta-presenter--set-current-slide-number (meta-presenter--increment meta-presenter--current-slide-number))))
         (t (progn (message "End of slide-show!")))))
 
+;;;###autoload
 (defun meta-presenter-move-to-previous-slide ()
   "Moves to the previous slide"
   (interactive)
@@ -152,28 +155,28 @@
 (defun meta-presenter--slide-down ()
   "Slides down the current slide"
   (cond (meta-presenter--enable-animations (dotimes (y (frame-height))
-                                            (beginning-of-buffer)
-                                            (insert (make-string (- (window-width)
-                                                                    2)
-                                                                 ?|))
-                                            (newline 1)
-                                            (sit-for 0.002)))))
+                                             (beginning-of-buffer)
+                                             (insert (make-string (- (window-width)
+                                                                     2)
+                                                                  ?|))
+                                             (newline 1)
+                                             (sit-for 0.002)))))
 
 (defun meta-presenter--fill-in ()
   "Fills the current screen with fillers"
   (cond (meta-presenter--enable-animations (dotimes (y (frame-height))
-                                            (insert (make-string (- (window-width)
-                                                                    2)
-                                                                 ?|))
-                                            (newline 1)))))
+                                             (insert (make-string (- (window-width)
+                                                                     2)
+                                                                  ?|))
+                                             (newline 1)))))
 
 (defun meta-presenter--slide-up ()
   "Slides up the next slide"
   (cond (meta-presenter--enable-animations (dotimes (y (frame-height))
-                                            (beginning-of-buffer)
-                                            (kill-line)
-                                            (kill-line)
-                                            (sit-for 0.002)))))
+                                             (beginning-of-buffer)
+                                             (kill-line)
+                                             (kill-line)
+                                             (sit-for 0.002)))))
 
 (defun meta-presenter--set-current-slide-number (n)
   "Updates the current slide number"
