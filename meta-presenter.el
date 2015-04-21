@@ -1,4 +1,4 @@
-;;; meta-presenter.el --- A simple experiment turned presenter for Emacs
+;;; meta-presenter.el --- A simple multi-file presentation tool for Emacs
 
 ;; This file is not part of Emacs
 
@@ -6,7 +6,7 @@
 ;; Keywords: productivity, presentation
 ;; Maintainer: Ismail Ansari team.terminal@aol.in
 ;; Created: 2014/12/22
-;; Description: A simple experiment turned presenter for Emacs
+;; Description: A simple multi-file presentation tool for Emacs
 ;; URL: http://ismail.teamfluxion.com
 ;; Compatibility: Emacs24
 
