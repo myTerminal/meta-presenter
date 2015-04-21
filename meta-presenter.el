@@ -78,7 +78,8 @@
 
 (defvar meta-presenter--index-file)
 
-(defvar meta-presenter--enable-animations nil)
+(defvar meta-presenter-enable-animations
+  nil)
 
 (defun meta-presenter--increment (n)
   "Increments a number"
@@ -154,7 +155,7 @@
 
 (defun meta-presenter--slide-down ()
   "Slides down the current slide"
-  (cond (meta-presenter--enable-animations (dotimes (y (frame-height))
+  (cond (meta-presenter-enable-animations (dotimes (y (frame-height))
                                              (beginning-of-buffer)
                                              (insert (make-string (- (window-width)
                                                                      2)
@@ -164,7 +165,7 @@
 
 (defun meta-presenter--fill-in ()
   "Fills the current screen with fillers"
-  (cond (meta-presenter--enable-animations (dotimes (y (frame-height))
+  (cond (meta-presenter-enable-animations (dotimes (y (frame-height))
                                              (insert (make-string (- (window-width)
                                                                      2)
                                                                   ?|))
@@ -172,7 +173,7 @@
 
 (defun meta-presenter--slide-up ()
   "Slides up the next slide"
-  (cond (meta-presenter--enable-animations (dotimes (y (frame-height))
+  (cond (meta-presenter-enable-animations (dotimes (y (frame-height))
                                              (beginning-of-buffer)
                                              (kill-line)
                                              (kill-line)
