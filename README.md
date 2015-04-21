@@ -1,7 +1,7 @@
 meta-presenter
 ==============
 
-A simple experiment turned presenter for Emacs 24
+A simple multi-file presentation tool for Emacs 24
 
 ## Usage
 
