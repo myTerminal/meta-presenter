@@ -1,4 +1,4 @@
-;;; meta-presenter.el --- A simple experiment turned presenter for Emacs 24
+;;; meta-presenter.el --- A simple experiment turned presenter for Emacs
 
 ;; This file is not part of Emacs
 
@@ -6,7 +6,7 @@
 ;; Keywords: productivity, presentation
 ;; Maintainer: Ismail Ansari team.terminal@aol.in
 ;; Created: 2014/12/22
-;; Description: A simple experiment turned presenter for Emacs 24
+;; Description: A simple experiment turned presenter for Emacs
 ;; URL: http://ismail.teamfluxion.com
 ;; Compatibility: Emacs24
 
@@ -46,24 +46,20 @@
 ;; where you would like the presenation to start. When the presentation starts,
 ;; you'll be taken to a buffer named *slide-show.md*.
 ;;
-;; In order to move to the next slide, run `meta-presenter-move-to-next-slide`.
-;; Moving back to the previous slide is obviously
-;; `meta-presenter-move-to-previous-slide`.
-;;
-;; I have taken the liberty to assign <F5>, <F7> and <F8> to the functions
-;; `meta-presenter-start-presentation`, `meta-presenter-move-to-previous-slide`
-;; and `meta-presenter-move-to-next-slide` respectively for convenience.
+;; In order to move to the next slide press `C-c C-v`, to move back to the
+;; previous slide press `C-c C-x`.
 ;;
 
 ;;; Commentary:
 
-;;     You can use this package to present a slide-show using Emacs 24.
+;;     You can use this package to present a slide-show using Emacs.
 ;;     Presenting is as simple as creating slides and a title slide and
-;;     hitting the <F5> key.
+;;     running `meta-presenter-start-presentation`.
 ;;
 ;;  Overview of features:
 ;;
-;;     o   Yet another presentation tool for Emacs 24
+;;     o   Yet another presentation tool for Emacs
+;;     o   Maintain slides as separate files
 ;;
 
 ;;; Code:
@@ -107,7 +103,8 @@
   (erase-buffer)
   (insert-file-contents meta-presenter--index-file
                         nil)
-  (beginning-of-buffer))
+  (beginning-of-buffer)
+  (meta-presenter-mode))
 
 ;;;###autoload
 (defun meta-presenter-move-to-next-slide ()
@@ -204,9 +201,13 @@
                                       (number-to-string (meta-presenter--get-previous-slide-number))
                                       "_*"))))
 
-(global-set-key (kbd "<f5>") 'meta-presenter-start-presentation)
-(global-set-key (kbd "<f8>") 'meta-presenter-move-to-next-slide)
-(global-set-key (kbd "<f7>") 'meta-presenter-move-to-previous-slide)
+;;;###autoload
+(define-minor-mode meta-presenter-mode
+  "Toggle meta-presenter-mode"
+  :init-value nil
+  :lighter " meta-presenter"
+  :keymap '(("\C-c\C-v" . meta-presenter-move-to-next-slide)
+            ("\C-c\C-x" . meta-presenter-move-to-previous-slide)))
 
 (provide 'meta-presenter)
 
