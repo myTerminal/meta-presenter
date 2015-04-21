@@ -7,7 +7,7 @@
 ;; Maintainer: Ismail Ansari team.terminal@aol.in
 ;; Created: 2014/12/22
 ;; Description: A simple experiment turned presenter for Emacs 24
-;; URL: http://ismail.teamfluxion.com, http://www.teamfluxion.com
+;; URL: http://ismail.teamfluxion.com
 ;; Compatibility: Emacs24
 
 
