@@ -2,7 +2,9 @@
 
 A simple multi-file presentation tool for Emacs
 
-## Usage
+## Installation
+
+### Manual
 
 Save the file *meta-presenter.el* to disk and add the directory containing it to 'load-path' using a command in your '.emacs' file like:
 
@@ -13,6 +15,14 @@ The above line assumes that you've placed the file into the Emacs directory '.em
 Start the package with:
 
     (require 'meta-presenter)
+
+### MELPA
+
+If you have MELPA added as a repository to your Emacs, you can just install *meta-presenter* with
+
+    M-x package-install meta-presenter RET
+
+## Usage
 
 Create a directory that contains slides to be presented stored as files. Name the files as the slide number followed by an underscore, followed by the name of the slide. Below are some examples:
 
