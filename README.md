@@ -1,5 +1,4 @@
-meta-presenter
-==============
+# meta-presenter [![MELPA](http://melpa.org/packages/meta-presenter-badge.svg)](http://melpa.org/#/meta-presenter)
 
 A simple multi-file presentation tool for Emacs
 
