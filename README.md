@@ -34,6 +34,8 @@ Create a separate title slide for the presentation, start the presentation mode 
 
 In order to move to the next slide press `C-c C-v`, to move back to the previous slide press `C-c C-x`.
 
+As the slides are not read-only, you could perform annotations on them. To revert the changes press `C-c C-c`.
+
 You can also enable animations for slide transitions which is currently experimental and not optimized. To enable animations, just evaluate the below line.
 
     (setq meta-presenter-enable-animations t)

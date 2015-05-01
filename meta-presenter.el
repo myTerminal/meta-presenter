@@ -49,6 +49,9 @@
 ;; In order to move to the next slide press `C-c C-v`, to move back to the
 ;; previous slide press `C-c C-x`.
 ;;
+;; As the slides are not read-only, you could perform annotations on them. To
+;; revert the changes press `C-c C-c`.
+;;
 
 ;;; Commentary:
 
@@ -86,6 +89,10 @@
   (- n 
      1))
 
+(defun meta-presenter--identity (n)
+  "Identity function"
+  n)
+
 ;;;###autoload
 (defun meta-presenter-start-presentation ()
   "Starts presentation mode"
@@ -111,14 +118,7 @@
   "Moves to the next slide"
   (interactive)
   (cond ((not (= meta-presenter--current-slide-number
-                 meta-presenter--slide-count)) (progn (meta-presenter--slide-down)
-                                                      (erase-buffer)
-                                                      (meta-presenter--fill-in)
-                                                      (meta-presenter--paste-progress 1)
-                                                      (insert-file-contents (meta-presenter--get-next-slide-name) 
-                                                                            nil)
-                                                      (meta-presenter--slide-up)
-                                                      (meta-presenter--set-current-slide-number (meta-presenter--increment meta-presenter--current-slide-number))))
+                 meta-presenter--slide-count)) (meta-presenter--move-to-slide-at-delta 1))
         (t (progn (message "End of slide-show!")))))
 
 ;;;###autoload
@@ -126,15 +126,35 @@
   "Moves to the previous slide"
   (interactive)
   (cond ((not (= meta-presenter--current-slide-number 
-                 1)) (progn (meta-presenter--slide-down)
-                            (erase-buffer)
-                            (meta-presenter--fill-in)
-                            (meta-presenter--paste-progress -1)
-                            (insert-file-contents (meta-presenter--get-previous-slide-name) 
-                                                  nil)
-                            (meta-presenter--slide-up)
-                            (meta-presenter--set-current-slide-number (meta-presenter--decrement meta-presenter--current-slide-number))))
+                 1)) (meta-presenter--move-to-slide-at-delta -1))
         (t (progn (message "Already on the first slide!")))))
+
+;;;###autoload
+(defun meta-presenter-reload-current-slide ()
+  "Reloads current slide"
+  (interactive)
+  (meta-presenter--move-to-slide-at-delta 0))
+
+(defun meta-presenter--move-to-slide-at-delta (delta)
+  "Moves to a slide at specified delta"
+  (let ((slide-name (cond ((< delta
+                               0) (meta-presenter--get-previous-slide-name))
+                           ((> delta
+                               0) (meta-presenter--get-next-slide-name))
+                           (t (meta-presenter--get-slide-name meta-presenter--current-slide-number))))
+        (slide-number-processor (cond ((< delta
+                                           0) 'meta-presenter--decrement)
+                                       ((> delta
+                                           0) 'meta-presenter--increment)
+                                       (t 'meta-presenter--identity))))
+    (meta-presenter--slide-down)
+    (erase-buffer)
+    (meta-presenter--fill-in)
+    (meta-presenter--paste-progress delta)
+    (meta-presenter--paste-slide-contents slide-name)
+    (meta-presenter--slide-up)
+    (meta-presenter--set-current-slide-number (funcall slide-number-processor
+                                                       meta-presenter--current-slide-number))))
 
 (defun meta-presenter--paste-progress (delta)
   "Pastes progress-bar on the screen"
@@ -149,6 +169,10 @@
                           100)
                        ?|))
   (newline 2))
+
+(defun meta-presenter--paste-slide-contents (slide-name)
+  (insert-file-contents slide-name
+                        nil))
 
 (defun meta-presenter--slide-down ()
   "Slides down the current slide"
@@ -195,6 +219,12 @@
                                       (number-to-string (meta-presenter--get-next-slide-number))
                                       "_*"))))
 
+(defun meta-presenter--get-slide-name (n)
+  "Gets the slide name for a specified slide number"
+  (car (file-expand-wildcards (concat meta-presenter--current-directory
+                                      (number-to-string n)
+                                      "_*"))))
+
 (defun meta-presenter--get-previous-slide-name ()
   "Gets the previous slide filename"
   (car (file-expand-wildcards (concat meta-presenter--current-directory
@@ -207,7 +237,8 @@
   :init-value nil
   :lighter " meta-presenter"
   :keymap '(("\C-c\C-v" . meta-presenter-move-to-next-slide)
-            ("\C-c\C-x" . meta-presenter-move-to-previous-slide)))
+            ("\C-c\C-x" . meta-presenter-move-to-previous-slide)
+            ("\C-c\C-c" . meta-presenter-reload-current-slide)))
 
 (provide 'meta-presenter)
 
