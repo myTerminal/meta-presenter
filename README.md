@@ -1,4 +1,7 @@
-# meta-presenter [![MELPA](http://melpa.org/packages/meta-presenter-badge.svg)](http://melpa.org/#/meta-presenter)
+# meta-presenter
+
+[![MELPA](http://melpa.org/packages/meta-presenter-badge.svg)](http://melpa.org/#/meta-presenter)
+[![License](https://img.shields.io/badge/LICENSE-GPL%20v3.0-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
 A simple multi-file presentation tool for Emacs
 
