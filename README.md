@@ -2,6 +2,7 @@
 
 [![MELPA](http://melpa.org/packages/meta-presenter-badge.svg)](http://melpa.org/#/meta-presenter)
 [![License](https://img.shields.io/badge/LICENSE-GPL%20v3.0-blue.svg)](https://www.gnu.org/licenses/gpl.html)
+[![Gratipay](http://img.shields.io/gratipay/myTerminal.svg)](https://gratipay.com/myTerminal)
 
 A simple multi-file presentation tool for Emacs
 
