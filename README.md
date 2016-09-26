@@ -44,8 +44,3 @@ As the slides are not read-only, you could perform annotations on them. To rever
 You can also enable animations for slide transitions which is currently experimental and not optimized. To enable animations, just evaluate the below line.
 
     (setq meta-presenter-enable-animations t)
-
-## Let me know
-Let me know your suggestions on improving 'meta-presenter.el' at ismail@teamfluxion.com
-
-Thank you!
