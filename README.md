@@ -7,6 +7,8 @@
 
 A simple multi-file presentation tool for Emacs
 
+![Demo](images/demo.gif)
+
 ## Installation
 
 ### Manual
