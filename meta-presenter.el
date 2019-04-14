@@ -44,7 +44,7 @@
 ;; mode while viewing the file. For example, if the directory containing your
 ;; slides contains a *title.md* file, you can run
 ;; `meta-presenter-start-presentation` while having the file open in the buffer
-;; where you would like the presenation to start. When the presentation starts,
+;; where you would like the presentation to start. When the presentation starts,
 ;; you'll be taken to a buffer named *slide-show.md*.
 ;;
 ;; In order to move to the next slide press `C-c C-v`, to move back to the
