@@ -82,21 +82,20 @@
   nil)
 
 (defun meta-presenter--increment (n)
-  "Increments a number"
+  "Increments a number."
   (1+ n))
 
 (defun meta-presenter--decrement (n)
-  "Decrements a number"
-  (- n 
-     1))
+  "Decrements a number."
+  (1- n))
 
 (defun meta-presenter--identity (n)
-  "Identity function"
+  "Identity function."
   n)
 
 ;;;###autoload
 (defun meta-presenter-start-presentation ()
-  "Starts presentation mode"
+  "Starts presentation mode."
   (interactive)
   (setq meta-presenter--current-directory
         (file-name-directory buffer-file-name))
@@ -116,7 +115,7 @@
 
 ;;;###autoload
 (defun meta-presenter-move-to-next-slide ()
-  "Moves to the next slide"
+  "Moves to the next slide."
   (interactive)
   (cond ((not (= meta-presenter--current-slide-number
                  meta-presenter--slide-count)) (meta-presenter--move-to-slide-at-delta 1))
@@ -124,20 +123,20 @@
 
 ;;;###autoload
 (defun meta-presenter-move-to-previous-slide ()
-  "Moves to the previous slide"
+  "Moves to the previous slide."
   (interactive)
-  (cond ((not (= meta-presenter--current-slide-number 
+  (cond ((not (= meta-presenter--current-slide-number
                  1)) (meta-presenter--move-to-slide-at-delta -1))
         (t (progn (message "Already on the first slide!")))))
 
 ;;;###autoload
 (defun meta-presenter-reload-current-slide ()
-  "Reloads current slide"
+  "Reloads current slide."
   (interactive)
   (meta-presenter--move-to-slide-at-delta 0))
 
 (defun meta-presenter--move-to-slide-at-delta (delta)
-  "Moves to a slide at specified delta"
+  "Moves to a slide at specified delta."
   (let ((slide-name (cond ((< delta
                                0) (meta-presenter--get-previous-slide-name))
                            ((> delta
@@ -158,14 +157,14 @@
                                                        meta-presenter--current-slide-number))))
 
 (defun meta-presenter--paste-progress (delta)
-  "Pastes progress-bar on the screen"
+  "Pastes progress-bar on the screen."
   (setq meta-presenter--progress-percentage
         (/ (* (+ meta-presenter--current-slide-number
                  delta)
               100)
            meta-presenter--slide-count))
   (beginning-of-buffer)
-  (insert (make-string (/ (* (window-width) 
+  (insert (make-string (/ (* (window-width)
                              meta-presenter--progress-percentage)
                           100)
                        ?|))
@@ -176,7 +175,7 @@
                         nil))
 
 (defun meta-presenter--slide-down ()
-  "Slides down the current slide"
+  "Slides down the current slide."
   (cond (meta-presenter-enable-animations (dotimes (y (frame-height))
                                              (beginning-of-buffer)
                                              (insert (make-string (- (window-width)
@@ -186,7 +185,7 @@
                                              (sit-for 0.002)))))
 
 (defun meta-presenter--fill-in ()
-  "Fills the current screen with fillers"
+  "Fills the current screen with fillers."
   (cond (meta-presenter-enable-animations (dotimes (y (frame-height))
                                              (insert (make-string (- (window-width)
                                                                      2)
@@ -194,7 +193,7 @@
                                              (newline 1)))))
 
 (defun meta-presenter--slide-up ()
-  "Slides up the next slide"
+  "Slides up the next slide."
   (cond (meta-presenter-enable-animations (dotimes (y (frame-height))
                                              (beginning-of-buffer)
                                              (kill-line)
@@ -202,39 +201,39 @@
                                              (sit-for 0.002)))))
 
 (defun meta-presenter--set-current-slide-number (n)
-  "Updates the current slide number"
+  "Updates the current slide number."
   (setq meta-presenter--current-slide-number
         n))
 
 (defun meta-presenter--get-next-slide-number ()
-  "Gets the next slide number"
-  (meta-presenter--increment meta-presenter--current-slide-number))
+  "Gets the next slide number."
+  (1+ meta-presenter--current-slide-number))
 
 (defun meta-presenter--get-previous-slide-number ()
-  "Gets the previous slide number"
-  (meta-presenter--decrement meta-presenter--current-slide-number))
+  "Gets the previous slide number."
+  (1- meta-presenter--current-slide-number))
 
 (defun meta-presenter--get-next-slide-name ()
-  "Gets the next slide filename"
+  "Gets the next slide filename."
   (car (file-expand-wildcards (concat meta-presenter--current-directory
                                       (number-to-string (meta-presenter--get-next-slide-number))
                                       "_*"))))
 
 (defun meta-presenter--get-slide-name (n)
-  "Gets the slide name for a specified slide number"
+  "Gets the slide name for a specified slide number."
   (car (file-expand-wildcards (concat meta-presenter--current-directory
                                       (number-to-string n)
                                       "_*"))))
 
 (defun meta-presenter--get-previous-slide-name ()
-  "Gets the previous slide filename"
+  "Gets the previous slide filename."
   (car (file-expand-wildcards (concat meta-presenter--current-directory
                                       (number-to-string (meta-presenter--get-previous-slide-number))
                                       "_*"))))
 
 ;;;###autoload
 (define-minor-mode meta-presenter-mode
-  "Toggle meta-presenter-mode"
+  "Toggles meta-presenter-mode."
   :init-value nil
   :lighter " meta-presenter"
   :keymap '(("\C-c\C-v" . meta-presenter-move-to-next-slide)
